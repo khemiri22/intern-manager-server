@@ -1,0 +1,47 @@
+apiVersion: apps/v1           # API version
+kind: Deployment              # Type of kubernetes resource
+metadata:
+  name: server    # Name of the kubernetes resource
+spec:
+  replicas: 1                 # No. of replicas/pods to run in this deployment
+  selector:
+    matchLabels:              # The deployment applies to any pods mayching the specified labels
+      app: server
+  template:                   # Template for creating the pods in this deployment
+    metadata:
+      labels:                 # Labels that will be applied to each Pod in this deployment
+        app: server
+    spec:                     # Spec for the containers that will be run in the Pods
+      containers:
+      - name: server
+        image: DOCKER_IMAGE:IMAGE_TAG
+        ports:
+          - name: server
+            containerPort: 8080 # The port that the container exposes
+        env:                  # Environment variables supplied to the Pod
+        - name: SPRING_DATASOURCE_USERNAME # Name of the environment variable
+          value: root
+        - name: SPRING_DATASOURCE_PASSWORD
+          value: root
+        - name: SPRING_DATASOURCE_URL
+          value: jdbc:mysql://mysql/gestion_stagiaires?createDatabaseIfNotExist=true
+        - name: SPRING_MAIL_HOST
+          value: smtp.gmail.com
+        - name: SPRING_MAIL_PORT
+          value: "587"
+        - name: SPRING_MAIL_USERNAME
+          value: mohamedamine.khemiri@sesame.com.tn
+        - name: SPRING_MAIL_PASSWORD
+          value: SygfkhMi
+        - name: JWT_TOKEN
+          value: 3cfa76ef14937c1c0ea519f8fc057a80fcd04a7420f8e8bcd0a7567c272e007b
+        - name: FILE_UPLOAD_DIR
+          value: /uploads/interns
+        volumeMounts:
+        - name: uploads-persistent-storage
+          mountPath: /uploads/interns
+      volumes:
+        - name: uploads-persistent-storage
+          persistentVolumeClaim:
+            claimName: uploads-pv-claim
+
