@@ -20,9 +20,9 @@ spec:
             containerPort: 8080 # The port that the container exposes
         env:                  # Environment variables supplied to the Pod
         - name: SPRING_DATASOURCE_USERNAME # Name of the environment variable
-          value: root
+          value: database_uname
         - name: SPRING_DATASOURCE_PASSWORD
-          value: root
+          value: database_password
         - name: SPRING_DATASOURCE_URL
           value: jdbc:mysql://mysql/gestion_stagiaires?createDatabaseIfNotExist=true
         - name: SPRING_MAIL_HOST
@@ -30,11 +30,11 @@ spec:
         - name: SPRING_MAIL_PORT
           value: "587"
         - name: SPRING_MAIL_USERNAME
-          value: mohamedamine.khemiri@sesame.com.tn
+          value: gmail_address
         - name: SPRING_MAIL_PASSWORD
-          value: SygfkhMi
+          value: gmail_app_password
         - name: JWT_TOKEN
-          value: 3cfa76ef14937c1c0ea519f8fc057a80fcd04a7420f8e8bcd0a7567c272e007b
+          value: jwt_secret_key
         - name: FILE_UPLOAD_DIR
           value: /uploads/interns
         volumeMounts:
